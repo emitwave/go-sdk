@@ -64,10 +64,10 @@ import (
 
 func main() {
 	client, err := emitwave.New(emitwave.Config{
-		GatewayURL: "https://api.emitwave.com",
-		AppID:      os.Getenv("EMITWAVE_APP_ID"),
-		Key:        os.Getenv("EMITWAVE_KEY"),
-		Secret:     os.Getenv("EMITWAVE_SECRET"),
+		// GatewayURL defaults to https://api.emitwave.com
+		AppID:  os.Getenv("EMITWAVE_APP_ID"),
+		Key:    os.Getenv("EMITWAVE_KEY"),
+		Secret: os.Getenv("EMITWAVE_SECRET"),
 	})
 	if err != nil {
 		log.Fatal(err)

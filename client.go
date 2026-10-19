@@ -16,8 +16,12 @@ import (
 	"github.com/emitwave/protocol"
 )
 
+// DefaultGatewayURL is the live Emitwave gateway, used when Config.GatewayURL
+// is empty.
+const DefaultGatewayURL = "https://api.emitwave.com"
+
 type Config struct {
-	GatewayURL string
+	GatewayURL string // optional; defaults to DefaultGatewayURL
 	AppID      string
 	Key        string // public key -> auth_key
 	Secret     string
@@ -30,11 +34,13 @@ type Client struct {
 }
 
 func New(cfg Config) (*Client, error) {
+	if cfg.GatewayURL == "" {
+		cfg.GatewayURL = DefaultGatewayURL
+	}
 	for name, v := range map[string]string{
-		"GatewayURL": cfg.GatewayURL,
-		"AppID":      cfg.AppID,
-		"Key":        cfg.Key,
-		"Secret":     cfg.Secret,
+		"AppID":  cfg.AppID,
+		"Key":    cfg.Key,
+		"Secret": cfg.Secret,
 	} {
 		if v == "" {
 			return nil, fmt.Errorf("emitwave: missing required config %q", name)
