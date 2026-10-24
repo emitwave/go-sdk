@@ -16,9 +16,10 @@ key used by browser clients. The SDK hashes the JSON body and HMAC-signs the
 method, path, canonical query, and body hash. The gateway validates that
 signature before accepting the event.
 
-Browser connections use a separate public application key and end-user Bearer
-token. Authenticated subscriptions receive their own short-lived subscription
-tokens.
+Browser connections use a separate public application key. The browser asks
+its same-origin application backend for short-lived connection and
+subscription tokens; the backend authenticates its own user and signs the
+token-mint request with a server credential.
 
 ## Publishing to channel types
 
